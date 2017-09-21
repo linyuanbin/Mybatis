@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+
+  <resultMap type="UserAlias" id="UserResult">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName"/>
+    <result column="PASSWORD" jdbcType="VARCHAR" property="Password"/>
+  </resultMap>
+
+
+  <!--查询全部-->
+  <select id="queryUserList" parameterType="long" resultMap="UserResult">
+    SELECT * FROM user WHERE id != 0
+  </select>
+
+  <!--查询一条-->
+  <select id="queryOne" parameterType="long" resultMap="UserResult">
+    select <include refid="value"/> from USER where id=1
+  </select>
+  <sql id="value">id,userName,Password</sql>
+  <!--sql标签可以用于设置常量，提供给多出调用-->
+
+  <!--模糊查询-->
+  <select id="queryUsers" parameterType="com.lin.model.User" resultMap="UserResult">
+    SELECT * FROM USER
+    <where>
+      <if test="userName !=null and !&quot;&quot;.equals(userName.trim())">
+        and userName LIKE '%' #{userName} '%'
+      </if>
+      <if test="password !=null and !&quot;&quot;.equals(password.trim())">
+        and password like '%' #{Password} '%'
+      </if>
+    </where>
+    /*where标签在最后拼接时会把最前面的and 删除，保证sql语句是正确的*/
+   <!-- <trim prefix="where" prefixOverrides="and/or">
+    这样trim标签就相当于where标签
+    </trim>
+    -->
+  </select>
+
+  <!--删除一条-->
+  <delete id="deleteOne" parameterType="int" >
+    DELETE FROM USER where ID = #{_parameter}
+  </delete>
+
+  <!--批量删除-->
+  <delete id="deleteBatch" parameterType="java.util.List">
+  DELETE FROM USER WHERE ID IN (
+  <foreach collection="list" item="item" separator=",">
+    #{item}
+  </foreach>
+  )
+  </delete>
+
+  <!--插入-->
+  <insert id="insertUser" parameterType="com.lin.model.User">
+    insert into USER (username,password) values (#{userName},#{Password});
+  </insert>
+<!--  <insert id="insertUser" parameterType="com.lin.model.User" useGeneratedKeys="true" >
+    INSERT INTO USER
+    (
+    userName,
+    Password
+    )
+    VALUES
+    (
+    #{userName},
+    #{Password}
+    )
+  </insert>-->
+
+
+  <update id="updateUser" keyProperty="com.lin.model.User">
+    update User set userName=#{userName},password=#{password} where id=#{id}
+    <set>
+    <!--  <if test="userName!=null and !&quot;&quot;.equals(userName.trim())">
+        userName=#{userName},
+      </if>
+      <if test="Password!=null and !&quot;&quot;.equals(Password.trim())">
+        Password=#{password}
+      </if>-->
+    </set>
+    <!--set标签在最后拼接时会把最后一个逗号删除-->
+    <!--
+    <trim prefix="set" prefixOverrides=",">
+
+    </trim>
+    这样的trim标签就相当于set标签
+   -->
+  </update>
+
+
+<!--  <select id="version" parameterType="long" resultType="int">
+    SELECT version FROM user WHERE id = #{id,jdbcType=INTEGER}
+  </select>-->
+
+<!--  <delete id="delete" parameterType="UserAlias">
+    DELETE FROM user WHERE id = #{id:INTEGER}
+  </delete>-->
+
+<!--  <insert id="insert" parameterType="UserAlias" useGeneratedKeys="false">
+    INSERT INTO user
+    ( id,
+    username,
+    password,
+    administrator
+    )
+    VALUES
+    ( #{id},
+    #{username,jdbcType=VARCHAR},
+    #{password.encrypted:VARCHAR},
+    #{administrator,jdbcType=BOOLEAN}
+    )
+  </insert>-->
+
+<!--  <update id="update" parameterType="UserAlias">
+    UPDATE user SET
+    username = #{username,jdbcType=VARCHAR},
+    password = #{password.encrypted,jdbcType=VARCHAR},
+    administrator = #{administrator,jdbcType=BOOLEAN}
+    WHERE
+    id = #{id,jdbcType=INTEGER}
+  </update>-->
+
+  <!--   Unique constraint check -->
+<!--  <select id="isUniqueUsername" parameterType="map" resultType="boolean">
+    SELECT (count(*) = 0)
+    FROM user
+    WHERE ((#{userId,jdbcType=BIGINT} IS NOT NULL AND id != #{userId,jdbcType=BIGINT}) OR #{userId,jdbcType=BIGINT} IS
+    NULL)  &lt;!&ndash; other than me &ndash;&gt;
+    AND (username = #{username,jdbcType=VARCHAR})
+  </select>-->
+</mapper>

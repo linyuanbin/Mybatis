@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="mybatis-3.4.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/mybatis-3.4.4.jar!/" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://D:/apache-tomcat-9.0.0.M8/webapps/docs/appdev/sample/src" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/webapps/examples/WEB-INF/classes" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/webapps/examples/WEB-INF/jsp/applet" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/webapps/examples/jsp/plugin/applet" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/JspCookieDemo" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/JspDemo" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/Jspjavabean" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/LoginServletDemo" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/MyServlet" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/ROOT" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/ServletCartDemo" />
+      <root url="file://D:/apache-tomcat-9.0.0.M8/work/Catalina/localhost/Struts_01" />
+    </SOURCES>
+  </library>
+</component>
